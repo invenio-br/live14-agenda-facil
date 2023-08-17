@@ -8,6 +8,24 @@
     <%= f.input :place_name %>
   </div>
 
+  <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+    <template data-nested-form-target="template">
+      <%= f.simple_fields_for :agenda_slots, AgendaSlot.new, child_index: 'NEW_RECORD' do |slot_fields| %>
+        <%= render "slot_form", f: slot_fields %>
+      <% end %>
+    </template>
+
+    <%= f.simple_fields_for :agenda_slots do |slot_fields| %>
+      <%= render "slot_form", f: slot_fields %>
+    <% end %>
+
+    <div data-nested-form-target="target"></div>
+
+    <button type="button" class="btn btn-secondary" data-action="nested-form#add">
+      Novo Horário
+    </button>
+  </div>
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
