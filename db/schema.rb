@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_17_185433) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_17_203839) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "agendas", force: :cascade do |t|
+    t.bigint "professional_id", null: false
+    t.string "place_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professional_id"], name: "index_agendas_on_professional_id"
+  end
 
   create_table "professionals", force: :cascade do |t|
     t.string "name"
@@ -21,4 +29,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_17_185433) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "agendas", "professionals"
 end
